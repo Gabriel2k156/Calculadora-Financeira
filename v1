@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+double J, M; // J = Juros simples // M = Juros compostos
+double capital, tempo;
+double taxa_de_juros, calculo_periodo;
+int opcao, tipo_de_juros;
+int main() {
+    printf("      CALCULADORA FINANCEIRA\n\n");
+    printf("Qual operação financeira deseja calcular?\n\n");
+    printf("1 = Juros Simples\n2 =Juros Compostos\n3 = Amortizacao\n");
+    scanf("%d", &opcao);
+    
+    switch(opcao){
+    
+    
+    case 1:
+        printf("Os juros são mensais ou anuais\n1 = Mensais\n2 = Anuais\n");
+        scanf("%d", &tipo_de_juros);
+        
+        if(tipo_de_juros == 1){
+            printf("Digite o periodo em MESES\n");
+            scanf("%lf", &tempo);
+        }
+        
+        else{
+            printf("Digite o periodo em ANOS\n");
+            scanf("%lf", &tempo);
+        }
+    
+        printf("Qual o valor da capital?\n");
+        scanf("%lf", &capital);
+        
+        printf("Qual a taxa de juros?\n");
+        scanf("%lf", &taxa_de_juros);
+        
+        
+        
+        J = capital * (taxa_de_juros / 100) * tempo;
+        
+        printf ("Valor com juros = R$%.2lf\n", J + capital);
+        break;
+        
+        
+    case 2:
+    printf("Os juros são mensais ou anuais\n1 = Mensais\n2 = Anuais\n");
+        scanf("%d", &tipo_de_juros);
+        
+        if(tipo_de_juros == 1){
+            printf("Digite o periodo em MESES\n");
+            scanf("%lf", &tempo);
+        }
+        
+        else{
+            printf("Digite o periodo em ANOS\n");
+            scanf("%lf", &tempo);
+        }
+        
+        printf("Qual o valor da capital?\n");
+        scanf("%lf", &capital);
+        
+        printf("Qual a taxa de juros?\n");
+        scanf("%lf", &taxa_de_juros);
+    
+        calculo_periodo = pow(1 + taxa_de_juros / 100, tempo);
+        
+        M = (capital * calculo_periodo);
+        
+        printf("Valor com juros = R$%.2lf\n", M);
+        break;
+        
+        default:{
+            printf("Digite um valor valido\n");
+        }
+    }
+
+  
+    return 0;
+}
