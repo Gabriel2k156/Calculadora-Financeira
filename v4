@@ -1,0 +1,202 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+ 
+ double J, M; // J = Juros simples // M = Juros compostos
+ double capital, parcela, calculo1, calculo2, juros_real;
+ double taxa_de_juros, valor_presente, valor_futuro;
+ int opcao, tipo_de_juros, tempo;
+ int main() {
+     do{
+     printf("\n          CALCULADORA FINANCEIRA\n\n");
+     printf("Qual operacao financeira deseja calcular?\n\n");
+     printf("1 = Juros Simples\n2 = Juros Compostos\n");
+     printf("3 = Amortizacao\n4 = Valor Presente\n");
+     printf("5 = Valor Futuro\n6 = Sair\n");
+     scanf("%d", &opcao);
+     while (getchar() != '\n'); // Limpa o buffer para que o getchar() funcione no final do programa
+    
+     switch(opcao){
+     
+     
+     case 1:
+     
+        printf("Qual o valor da capital?\n");
+        scanf("%lf", &capital);
+        
+        printf("Qual a taxa de juros?\n");
+        scanf("%lf", &taxa_de_juros);
+        
+        printf("Os juros sao mensais ou anuais\n1 = Mensais\n2 = Anuais\n");
+        scanf("%d", &tipo_de_juros);
+        
+        if(tipo_de_juros == 1){
+        printf("Digite o periodo em MESES\n");// Nao e necessario nenhum tipo de conversao, o calculo ja e feito usando meses como base
+        scanf("%d", &tempo);
+        }
+         
+        else if(tipo_de_juros == 2){
+        printf("Digite o periodo em ANOS\n");
+        scanf("%d", &tempo);
+
+        tempo = tempo * 12; // Converte a entrada de ANOS para MESES para realizar o calculo, proporcionalmente
+        taxa_de_juros = taxa_de_juros / 12; // Mesma coisa dita acima
+        }
+         
+        J = capital * (taxa_de_juros / 100) * tempo;//Taxa de juros foi dividida por 100 para ser convertida em decimal
+         
+        printf ("Valor com juros = R$%.2lf\n", J + capital);// Juros_Simples = Capital * tx de juros * tempo
+        break; // Impede que o resto dos "case" sejam executados
+        
+         
+     case 2:
+         
+        printf("Qual o valor da capital?\n");
+        scanf("%lf", &capital);
+         
+        printf("Qual a taxa de juros?\n");
+        scanf("%lf", &taxa_de_juros);
+         
+        printf("Os juros sao mensais ou anuais?\n1 = Mensais\n2 = Anuais\n");
+        scanf("%d", &tipo_de_juros);
+         
+        if(tipo_de_juros == 1){
+        printf("Digite o periodo em MESES\n");
+        scanf("%d", &tempo);
+        }
+         
+        else if(tipo_de_juros == 2){
+        printf("Digite o periodo em ANOS\n");
+        scanf("%d", &tempo);
+
+        tempo = tempo * 12; // Converte a entrada de ANOS para MESES para realizar o calculo, proporcionalmente
+        taxa_de_juros = taxa_de_juros / 12; // Mesma coisa dita acima
+        }
+         
+        M = capital * (pow(1 + taxa_de_juros / 100, tempo)); // Juros_Compostos = Capital * (1 + tx de juros)^tempo
+         
+        printf("Valor com juros = R$%.2lf\n", M);
+        break;// Impede que o resto dos "case" sejam executados
+         
+        case 3:
+         
+        printf("Qual o valor financiado?\n");
+        scanf("%lf", &capital);
+         
+        printf("Os juros sao mensais ou anuais?\n1 = Mensais\n2 = Anuais\n");
+        scanf("%d", &tipo_de_juros);
+         
+        if(tipo_de_juros == 1){
+        printf("Qual a taxa de juros MENSAL?\n");
+        scanf("%lf", &taxa_de_juros);
+        if(taxa_de_juros <= 0){
+        printf("A taxa de juros nao pode ser zero\n");
+        break;
+        }
+         
+        printf("Digite o periodo em MESES\n");
+        scanf("%d", &tempo);
+        }
+         
+        else if(tipo_de_juros == 2){
+        printf("Qual a taxa de juros ANUAL?");
+        scanf("%lf", &taxa_de_juros);
+             
+        printf("Digite o periodo em ANOS\n");
+        scanf("%d", &tempo);
+        tempo = tempo * 12; // Converte a entrada de ANOS para MESES para realizar o calculo, proporcionalmente
+        taxa_de_juros = taxa_de_juros / 12; // Mesma coisa dita acima
+        }
+         
+        juros_real = taxa_de_juros / 100;// Converte a entrada de numero inteiro (taxa de juros) em decimal
+        calculo1 = juros_real * pow(1 + juros_real, tempo);// Primeira parte do calculo de juros compostos: Juros * (1 + juros)^tempo
+        calculo2 = pow(1 + juros_real, tempo) - 1;// Segunda parte do calculo: (1 + juros^tempo) - 1
+         
+        parcela = capital * (calculo1 / calculo2); // Juncao das duas partes do calculo: Capital * resultado da divisao dos calculos acima
+         
+        printf("Parcela = %.2lf\n", parcela);
+        break;// Impede que o resto dos "case" sejam executados
+         
+        case 4:
+        printf("Digite o valor futuro\n");
+        scanf("%lf", &valor_futuro);
+
+        printf("Os juros sao mensais ou anuais?\n1 = Mensais\n2 = Anuais\n");
+        scanf("%d", &tipo_de_juros);
+         
+        if(tipo_de_juros == 1){
+        printf("Qual a taxa de juros MENSAL?\n");
+        scanf("%lf", &taxa_de_juros);
+            
+        printf("Digite o periodo em MESES\n");
+        scanf("%d", &tempo); 
+        
+        juros_real = (taxa_de_juros / 100);// Converte a entrada de numero inteiro (taxa de juros) em decimal
+
+        }
+         
+        else if(tipo_de_juros == 2){
+        printf("Digite o periodo em ANOS\n");
+        scanf("%d", &tempo);
+
+        printf("Digite a taxa de juros ANUAL\n");
+        scanf("%lf", &taxa_de_juros);
+
+        tempo = tempo * 12; // Converte a entrada de ANOS para MESES para realizar o calculo, proporcionalmente
+        juros_real = (taxa_de_juros / 100) / 12; // Mesma coisa dita acima
+        }
+
+        valor_presente = valor_futuro / pow(1 + juros_real, tempo);// VP = VF / (1 + juros)^tempo
+
+        printf("O valor presente liquido e de R$%.2lf\n", valor_presente);
+        break;// Impede que o resto dos "case" sejam executados
+
+        case 5:
+        printf("Digite o valor presente\n");
+        scanf("%lf", &valor_presente);
+        
+        printf("Os juros sao mensais ou anuais?\n1 = Mensais\n2 = Anuais\n");
+         scanf("%d", &tipo_de_juros);
+         
+        if(tipo_de_juros == 1){
+        printf("Qual a taxa de juros MENSAL?\n");
+        scanf("%lf", &taxa_de_juros);
+            
+        printf("Digite o periodo em MESES\n");
+        scanf("%d", &tempo);
+
+        juros_real = taxa_de_juros / 100;
+        }  
+
+        else if(tipo_de_juros == 2){
+        printf("Qual a taxa de juros ANOS?\n");
+        scanf("%lf", &taxa_de_juros);
+                
+        printf("Digite o periodo em ANOS\n");
+        scanf("%d", &tempo);
+
+        tempo = tempo * 12;
+        juros_real = (taxa_de_juros / 100) / 12;// Converte a entrada de numero inteiro (taxa de juros) em decimal
+        }
+        valor_futuro = valor_presente * pow(1 + juros_real, tempo);// VF = VP * (1 + juros)^tempo
+
+        printf("O valor futuro do seu investimento e de R$%.2lf\n", valor_futuro);
+        break;// Impede que o resto dos "case" sejam executados
+
+        case 6:
+
+        printf("Saindo da calculadora...\n");
+        getchar(); // Pede uma entrada antes do programa fechar
+         break;// Impede que o resto dos "case" sejam executados
+
+        default:
+        printf("Digite uma opcao valida\n");// Impede que seja utilizada outra opcao alem das listadas no menu
+        }  
+       }   
+     
+     
+     while(opcao != 6);
+    
+     return 0;
+    }
+ 
