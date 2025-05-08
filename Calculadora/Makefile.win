@@ -1,0 +1,31 @@
+# Project: Calculadora
+# Makefile created by Embarcadero Dev-C++ 6.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = main.o calculadora.o
+LINKOBJ  = main.o calculadora.o
+LIBS     = -L"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/lib" -L"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/include" -I"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
+CXXINCS  = -I"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/include" -I"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Users/pc/Desktop/C++ -  DevEmbarcadero/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
+BIN      = Calculadora.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+DEL      = C:\Users\pc\Desktop\C++ -  DevEmbarcadero\devcpp.exe INTERNAL_DEL
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${DEL} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.c
+	$(CC) -c main.c -o main.o $(CFLAGS)
+
+calculadora.o: calculadora.c
+	$(CC) -c calculadora.c -o calculadora.o $(CFLAGS)
